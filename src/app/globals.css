@@ -1,26 +1,44 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: #F7F4EF;
+  --color-foreground: #0C1933;
+
+  --color-primary: #0C1933;
+  --color-primary-foreground: #F7F4EF;
+
+  --color-accent: #D6A756;
+  --color-accent-foreground: #0C1933;
+
+  --color-muted: #E2E2E7;
+  --color-muted-foreground: #64748B;
+
+  --color-success: #10B981;
+  --color-success-foreground: #FFFFFF;
+
+  /* Linda Theme Colors */
+  --color-linda-bg: #FDFBF7; /* Cream/Soft White */
+  --color-linda-text: #2D3748; /* Soft Dark Grey */
+  --color-linda-primary: #8BA89D; /* Soft Green */
+  --color-linda-accent: #A0B4C4; /* Muted Blue */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Custom Utilities */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 80rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
