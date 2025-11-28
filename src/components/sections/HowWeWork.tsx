@@ -1,64 +1,101 @@
+"use client";
+
 import { Search, Rocket, TrendingUp } from "lucide-react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function HowWeWork() {
     return (
         <section className="py-20 bg-white">
             <div className="container">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
-                        How We Work
-                    </h2>
-                    <p className="text-lg text-muted-foreground">
-                        From discovery to scale in three simple steps.
-                    </p>
-                </div>
+                <ScrollReveal>
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4 text-primary">
+                            How We Work
+                        </h2>
+                        <p className="text-lg text-muted-foreground">
+                            From discovery to scale in three simple steps.
+                        </p>
+                    </div>
+                </ScrollReveal>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                    {/* Connector Line (Desktop) */}
-                    <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-muted -z-10" />
+                    {/* Animated Connector Line (Desktop) */}
+                    <AnimatedLine />
 
-                    <Step
-                        icon={Search}
-                        number="1"
-                        title="Explore"
-                        description="30–45 min discovery call to align on use case and user base."
-                    />
-                    <Step
-                        icon={Rocket}
-                        number="2"
-                        title="Pilot"
-                        description="4–8 week pilot with a subset of users (white-label or co-branded)."
-                    />
-                    <Step
-                        icon={TrendingUp}
-                        number="3"
-                        title="Scale"
-                        description="Integration into partner channels, revenue sharing, and local support."
-                    />
+                    <ScrollReveal delay={0.1}>
+                        <Step
+                            icon={Search}
+                            number="1"
+                            title="Explore"
+                            description="30–45 min discovery call to align on use case and user base."
+                        />
+                    </ScrollReveal>
+                    <ScrollReveal delay={0.2}>
+                        <Step
+                            icon={Rocket}
+                            number="2"
+                            title="Pilot"
+                            description="4–8 week pilot with a subset of users (white-label or co-branded)."
+                        />
+                    </ScrollReveal>
+                    <ScrollReveal delay={0.3}>
+                        <Step
+                            icon={TrendingUp}
+                            number="3"
+                            title="Scale"
+                            description="Integration into partner channels, revenue sharing, and local support."
+                        />
+                    </ScrollReveal>
                 </div>
 
                 {/* FAQ Accordion Stub */}
                 <div className="max-w-3xl mx-auto mt-20">
-                    <h3 className="text-2xl font-bold font-heading mb-8 text-center text-primary">
-                        Common Questions
-                    </h3>
+                    <ScrollReveal>
+                        <h3 className="text-2xl font-bold font-heading mb-8 text-center text-primary">
+                            Common Questions
+                        </h3>
+                    </ScrollReveal>
                     <div className="space-y-4">
-                        <FAQItem
-                            question="Can we white-label your products?"
-                            answer="Yes, we support full white-labeling for enterprise partners."
-                        />
-                        <FAQItem
-                            question="Do you support on-prem deployments?"
-                            answer="We can support VPC deployments for regulated industries like banking and healthcare."
-                        />
-                        <FAQItem
-                            question="Which markets do you prioritize?"
-                            answer="We are currently focused on emerging markets in Africa, but our solutions are globally relevant."
-                        />
+                        <ScrollReveal delay={0.1}>
+                            <FAQItem
+                                question="Can we white-label your products?"
+                                answer="Yes, we support full white-labeling for enterprise partners."
+                            />
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.2}>
+                            <FAQItem
+                                question="Do you support on-prem deployments?"
+                                answer="We can support VPC deployments for regulated industries like banking and healthcare."
+                            />
+                        </ScrollReveal>
+                        <ScrollReveal delay={0.3}>
+                            <FAQItem
+                                question="Which markets do you prioritize?"
+                                answer="We are currently focused on European and US markets, with solutions designed for global scalability."
+                            />
+                        </ScrollReveal>
                     </div>
                 </div>
             </div>
         </section>
+    );
+}
+
+function AnimatedLine() {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+    return (
+        <motion.div
+            ref={ref}
+            className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-primary/20 -z-10"
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            style={{ transformOrigin: "left" }}
+        />
     );
 }
 
@@ -97,3 +134,4 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
         </div>
     );
 }
+

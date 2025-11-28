@@ -9,7 +9,7 @@ export default function Footer() {
                 <div className="col-span-1 md:col-span-1 flex flex-col gap-4">
                     <Logo />
                     <p className="text-primary-foreground/80 text-sm leading-relaxed max-w-xs">
-                        AI utilities for everyday life. Built in Africa, for the world.
+                        AI utilities for everyday life, designed for global impact.
                     </p>
                 </div>
 

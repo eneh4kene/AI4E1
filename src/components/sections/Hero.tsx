@@ -4,27 +4,57 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Cpu, Users, Zap, Briefcase, Phone } from "lucide-react";
 
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.1,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] as any },
+    },
+};
+
+
 export default function Hero() {
     return (
         <section className="relative pt-12 pb-20 md:pt-24 md:pb-32 overflow-hidden">
             <div className="container grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Left Content */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
                     className="flex flex-col gap-6"
                 >
-                    <h1 className="text-4xl md:text-6xl font-bold font-heading leading-tight text-primary">
+                    <motion.h1
+                        variants={itemVariants}
+                        className="text-4xl md:text-6xl font-bold font-heading leading-tight text-primary"
+                    >
                         AI utilities for <span className="text-accent">every one</span>,{" "}
                         <br className="hidden md:block" />
                         everywhere.
-                    </h1>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
+                    </motion.h1>
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed"
+                    >
                         AI4E1 builds practical AI products that blend into daily life — from
                         social discovery and AR art to job search and call-based support.
-                    </p>
-                    <div className="flex flex-wrap gap-4 pt-4">
+                    </motion.p>
+                    <motion.div
+                        variants={itemVariants}
+                        className="flex flex-wrap gap-4 pt-4"
+                    >
                         <Link
                             href="#contact"
                             className="bg-primary text-primary-foreground px-8 py-4 rounded-full font-semibold text-lg hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl"
@@ -37,15 +67,20 @@ export default function Hero() {
                         >
                             Explore our products
                         </Link>
-                    </div>
+                    </motion.div>
                 </motion.div>
 
                 {/* Right Visual - Constellation */}
                 <div className="relative h-[400px] md:h-[500px] flex items-center justify-center">
                     {/* Central Node */}
-                    <div className="absolute z-10 bg-primary text-primary-foreground p-6 rounded-2xl shadow-2xl">
+                    <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="absolute z-10 bg-primary text-primary-foreground p-6 rounded-2xl shadow-2xl"
+                    >
                         <Cpu size={48} />
-                    </div>
+                    </motion.div>
 
                     {/* Orbiting Nodes */}
                     <OrbitingNode
@@ -53,33 +88,43 @@ export default function Hero() {
                         label="Iwanna"
                         angle={0}
                         radius={140}
-                        delay={0}
+                        delay={0.3}
                     />
                     <OrbitingNode
                         icon={Zap}
                         label="Framerly"
                         angle={90}
                         radius={140}
-                        delay={1}
+                        delay={0.5}
                     />
                     <OrbitingNode
                         icon={Briefcase}
                         label="InterviewsFirst"
                         angle={180}
                         radius={140}
-                        delay={2}
+                        delay={0.7}
                     />
                     <OrbitingNode
                         icon={Phone}
                         label="Linda"
                         angle={270}
                         radius={140}
-                        delay={3}
+                        delay={0.9}
                     />
 
                     {/* Orbit Rings */}
-                    <div className="absolute border border-dashed border-primary/20 rounded-full w-[280px] h-[280px] animate-spin-slow" />
-                    <div className="absolute border border-primary/5 rounded-full w-[400px] h-[400px]" />
+                    <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.2 }}
+                        className="absolute border border-dashed border-primary/20 rounded-full w-[280px] h-[280px] animate-spin-slow"
+                    />
+                    <motion.div
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                        className="absolute border border-primary/5 rounded-full w-[400px] h-[400px]"
+                    />
                 </div>
             </div>
 
@@ -112,9 +157,10 @@ function OrbitingNode({
                 x: Math.cos((angle * Math.PI) / 180) * radius,
                 y: Math.sin((angle * Math.PI) / 180) * radius,
             }}
-            transition={{ duration: 0.5, delay }}
+            transition={{ duration: 0.6, delay, ease: "easeOut" }}
+            whileHover={{ scale: 1.15 }}
         >
-            <div className="bg-white p-3 rounded-xl shadow-lg border border-primary/10 text-primary hover:scale-110 transition-transform cursor-pointer group">
+            <div className="bg-white p-3 rounded-xl shadow-lg border border-primary/10 text-primary hover:shadow-2xl hover:shadow-primary/20 transition-all cursor-pointer group">
                 <Icon size={24} />
                 <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     {label}
@@ -123,3 +169,4 @@ function OrbitingNode({
         </motion.div>
     );
 }
+
