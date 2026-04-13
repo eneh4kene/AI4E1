@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>AI4E1 — AI that reaches people first.</title>
+  <meta name="description" content="AI4E1 builds proactive AI systems for education, care, and business. Bristol-based. Services, products, and research."/>
+  <meta property="og:title" content="AI4E1 — AI that reaches people first."/>
+  <meta property="og:description" content="AI4E1 builds proactive AI systems for education, care, and business. Bristol-based."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ai4e1.net"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <link rel="icon" href="/favicon.ico" sizes="any"/>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#F7F7F4;
+      --bg2:#EFEFEC;
+      --bg3:#E8E8E5;
+      --dark:#0A0A0A;
+      --dark2:#111111;
+      --tx:#0A0A0A;
+      --txm:rgba(10,10,10,.52);
+      --txd:rgba(10,10,10,.28);
+      --ac:#0CF0C0;
+      --acg:rgba(12,240,192,.18);
+      --acd:rgba(12,240,192,.08);
+      --bd:rgba(10,10,10,.1);
+      --bdt:1px solid var(--bd);
+      --bdk:2px solid var(--dark);
+      --nav:68px;
+    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--tx);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6;overflow-x:hidden;cursor:none;}
+
+    /* ── CUSTOM CURSOR (square pixel) ── */
+    #cur{position:fixed;width:10px;height:10px;background:var(--ac);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,opacity .3s,background .2s;box-shadow:0 0 12px var(--ac),0 0 28px rgba(12,240,192,.3);}
+    #cur-r{position:fixed;width:32px;height:32px;border:1.5px solid rgba(12,240,192,.5);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .3s;}
+    body:not(.con) #cur,body:not(.con) #cur-r{opacity:0;}
+    body.hover #cur{width:6px;height:6px;background:var(--dark);}
+    body.hover #cur-r{width:48px;height:48px;border-color:var(--dark);}
+
+    /* ── TYPE ── */
+    h1,h2,h3{font-family:'Orbitron',sans-serif;text-transform:uppercase;letter-spacing:.04em;line-height:1.08;}
+    h1{font-size:clamp(2.4rem,6.5vw,5.5rem);font-weight:900;}
+    h2{font-size:clamp(1.6rem,4vw,3rem);font-weight:700;}
+    h3{font-size:clamp(1rem,1.8vw,1.25rem);font-weight:600;}
+    .lbl{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;}
+    .mono{font-family:'Space Mono',monospace;}
+
+    /* ── LAYOUT ── */
+    .w{max-width:1120px;margin:0 auto;padding:0 28px;}
+    section{padding:120px 0;}
+    .sl{color:var(--ac);display:block;margin-bottom:12px;}
+    .ss{color:var(--txm);max-width:500px;margin-top:14px;font-size:.98rem;line-height:1.75;}
+
+    /* ── REVEAL ── */
+    .rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+    .rv.l{transform:translateX(-28px);}.rv.r{transform:translateX(28px);}
+    .rv.on{opacity:1;transform:none;}
+    .d1{transition-delay:.07s;}.d2{transition-delay:.15s;}.d3{transition-delay:.23s;}.d4{transition-delay:.31s;}
+
+    /* ── NOISE ── */
+    body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:8000;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:500;background:var(--bg);border-bottom:var(--bdt);transition:border-color .3s,box-shadow .3s;}
+    nav.sk{box-shadow:0 1px 0 rgba(10,10,10,.08);}
+    .ni{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+    .nl{font-family:'Press Start 2P',monospace;font-size:.85rem;color:var(--tx);text-decoration:none;letter-spacing:.05em;line-height:1;}
+    .nl span{color:var(--ac);}
+    .nls{display:flex;align-items:center;gap:28px;list-style:none;}
+    .nls a{font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--txm);text-decoration:none;transition:color .2s;cursor:none;position:relative;}
+    .nls a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--ac);transition:width .25s;}
+    .nls a:hover{color:var(--tx);}
+    .nls a:hover::after{width:100%;}
+    .nc{background:var(--dark)!important;color:var(--bg)!important;padding:9px 22px;font-weight:700!important;border:2px solid var(--dark);transition:background .2s,color .2s!important;}
+    .nc::after{display:none!important;}
+    .nc:hover{background:var(--ac)!important;color:var(--dark)!important;border-color:var(--ac);}
+    .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
+    .burger span{display:block;width:22px;height:1.5px;background:var(--tx);transition:all .3s;}
+    .burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+    .burger.open span:nth-child(2){opacity:0;}
+    .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+    #mob{position:fixed;inset:0;top:var(--nav);background:var(--bg);z-index:499;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;opacity:0;pointer-events:none;transition:opacity .3s;border-top:var(--bdt);}
+    #mob.open{opacity:1;pointer-events:all;}
+    #mob a{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:900;text-transform:uppercase;color:var(--tx);text-decoration:none;transition:color .2s;letter-spacing:.06em;}
+    #mob a:hover{color:var(--ac);}
+
+    /* ── BUTTONS ── */
+    .bp{display:inline-flex;align-items:center;gap:8px;background:var(--dark);color:var(--bg);padding:14px 32px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--dark);transition:background .2s,color .2s,border-color .2s;cursor:none;}
+    .bp:hover{background:var(--ac);color:var(--dark);border-color:var(--ac);}
+    .bs{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--tx);padding:14px 32px;font-family:'Orbitron',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--dark);transition:background .2s,color .2s;cursor:none;}
+    .bs:hover{background:var(--dark);color:var(--bg);}
+    .bg{display:inline-flex;align-items:center;gap:8px;color:var(--tx);font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1.5px solid var(--ac);padding-bottom:2px;transition:color .2s,border-color .2s;cursor:none;}
+    .bg:hover{color:var(--ac);}
+
+    /* ── TICKER ── */
+    .ticker{background:var(--dark);overflow:hidden;padding:12px 0;border-top:2px solid var(--dark);border-bottom:2px solid var(--dark);}
+    .ticker-track{display:flex;white-space:nowrap;animation:tick 30s linear infinite;}
+    .ticker-track:hover{animation-play-state:paused;}
+    .ticker-item{font-family:'Space Mono',monospace;font-size:.68rem;color:rgba(255,255,255,.5);padding:0 32px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;}
+    .ticker-item span{color:var(--ac);}
+    @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+    /* ── HERO ── */
+    #hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:var(--nav) 0 0;border-bottom:2px solid var(--dark);}
+    /* dot grid */
+    #hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(10,10,10,.15) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);pointer-events:none;}
+    .hero-in{position:relative;z-index:10;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 0 60px;}
+
+    /* left */
+    .hbadge{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--dark);padding:5px 14px 5px 10px;margin-bottom:28px;font-family:'Space Mono',monospace;font-size:.64rem;color:var(--txm);letter-spacing:.06em;width:fit-content;}
+    .hdot{width:6px;height:6px;background:var(--ac);animation:blink 1.2s step-end infinite;flex-shrink:0;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+    .hh1{margin-bottom:20px;line-height:1.05;}
+    .hh1 .glitch{position:relative;color:var(--ac);display:inline-block;animation:glitch 4s infinite;}
+    @keyframes glitch{
+      0%,89%,100%{text-shadow:none;transform:none;}
+      90%{text-shadow:2px 0 #ff006e,-2px 0 #0CF0C0;transform:translateX(2px);}
+      92%{text-shadow:-2px 0 #0CF0C0,2px 0 #ff006e;transform:translateX(-2px);}
+      94%{text-shadow:2px 2px #ff006e;transform:translate(1px,-1px);}
+      96%{text-shadow:none;transform:none;}
+      97%{text-shadow:-2px 0 var(--ac);transform:translateX(-1px);}
+      98%{text-shadow:none;transform:none;}
+    }
+    .hsub{font-size:1rem;color:var(--txm);max-width:420px;margin-bottom:36px;line-height:1.78;}
+    .hctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px;}
+    .htag{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--txd);letter-spacing:.08em;}
+    .htag span{color:var(--ac);}
+
+    /* right — hero visual */
+    .hero-right{position:relative;height:520px;}
+    .hero-img-wrap{width:100%;height:100%;border:2px solid var(--dark);overflow:hidden;position:relative;}
+    .hero-img-wrap img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1);opacity:.55;mix-blend-mode:multiply;}
+    .hero-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,247,244,.05) 0%,rgba(247,247,244,.35) 100%);mix-blend-mode:normal;}
+    /* scanlines over image */
+    .hero-img-wrap::before{content:'';position:absolute;inset:0;z-index:2;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(10,10,10,.04) 3px,rgba(10,10,10,.04) 4px);pointer-events:none;}
+    /* teal color wash */
+    .hero-img-teal{position:absolute;inset:0;z-index:1;background:linear-gradient(135deg,rgba(12,240,192,.12) 0%,transparent 60%);mix-blend-mode:normal;}
+
+    /* HUD cards */
+    .hud{position:absolute;z-index:20;background:var(--bg);border:2px solid var(--dark);padding:14px 18px;}
+    .hud1{top:8%;left:-10%;width:230px;animation:hf1 5s ease-in-out infinite;}
+    .hud2{bottom:12%;right:-8%;width:200px;animation:hf2 6.5s ease-in-out infinite;}
+    .hud3{top:48%;left:-14%;width:172px;animation:hf3 7s ease-in-out infinite;}
+    @keyframes hf1{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+    @keyframes hf2{0%,100%{transform:translateY(0);}50%{transform:translateY(9px);}}
+    @keyframes hf3{0%,100%{transform:translateY(-50%);}50%{transform:translateY(calc(-50% - 8px));}}
+    .hud-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bd);}
+    .hud-av{width:28px;height:28px;background:var(--dark);color:var(--bg);font-family:'Press Start 2P',monospace;font-size:.55rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .hud-av.ac{background:var(--ac);color:var(--dark);}
+    .hud-name{font-family:'Orbitron',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;color:var(--tx);}
+    .hud-st{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--txd);display:flex;align-items:center;gap:5px;}
+    .hud-live{width:5px;height:5px;background:var(--ac);flex-shrink:0;animation:blink 1.2s step-end infinite;}
+    .wave-wrap{display:flex;align-items:center;gap:3px;height:24px;}
+    .wb{width:3px;background:var(--ac);animation:wv var(--d,.8s) ease-in-out infinite alternate;}
+    @keyframes wv{from{height:3px;}to{height:var(--h,18px);}}
+    .hud-foot{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--txd);margin-top:8px;letter-spacing:.06em;}
+    .hud-stat{font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;color:var(--tx);line-height:1;}
+    .hud-stl{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--txd);margin-top:3px;letter-spacing:.08em;text-transform:uppercase;}
+
+    /* corner decorations */
+    .corner{position:absolute;width:12px;height:12px;}
+    .corner.tl{top:-2px;left:-2px;border-top:2px solid var(--ac);border-left:2px solid var(--ac);}
+    .corner.tr{top:-2px;right:-2px;border-top:2px solid var(--ac);border-right:2px solid var(--ac);}
+    .corner.bl{bottom:-2px;left:-2px;border-bottom:2px solid var(--ac);border-left:2px solid var(--ac);}
+    .corner.br{bottom:-2px;right:-2px;border-bottom:2px solid var(--ac);border-right:2px solid var(--ac);}
+
+    /* scroll indicator */
+    .sc-ind{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;z-index:10;}
+    .sc-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--dark));animation:sl 2s ease-in-out infinite;}
+    @keyframes sl{0%{transform:scaleY(0);transform-origin:top;}49%{transform:scaleY(1);transform-origin:top;}50%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+    .sc-lbl{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--txd);letter-spacing:.12em;text-transform:uppercase;}
+
+    /* ── SERVICES ── */
+    #services{background:var(--bg);border-bottom:2px solid var(--dark);}
+    .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border:2px solid var(--dark);}
+    .sc{padding:32px;border-right:2px solid var(--dark);position:relative;transition:background .25s;}
+    .sc:last-child{border-right:none;}
+    .sc:hover{background:var(--bg2);}
+    .sc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.16,1,.3,1);}
+    .sc:hover::before{transform:scaleX(1);}
+    .sc-n{font-family:'Orbitron',sans-serif;font-size:3.5rem;font-weight:900;color:rgba(10,10,10,.06);line-height:1;margin-bottom:16px;transition:color .3s;}
+    .sc:hover .sc-n{color:rgba(12,240,192,.2);}
+    .sc-t{font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+    .sc-d{color:var(--txm);font-size:.875rem;line-height:1.75;margin-bottom:18px;}
+    .sc-p{font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;color:var(--tx);margin-bottom:8px;}
+    .sc-s{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--txd);line-height:1.65;padding-top:14px;border-top:var(--bdt);}
+    .pop{display:inline-block;background:var(--ac);color:var(--dark);font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;margin-bottom:10px;}
+    .sf{text-align:center;margin-top:56px;padding-top:48px;border-top:2px solid var(--dark);}
+    .sf p{color:var(--txm);margin-bottom:28px;font-size:.92rem;max-width:500px;margin-left:auto;margin-right:auto;}
+
+    /* ── PROOF ── */
+    #proof{background:var(--bg2);border-bottom:2px solid var(--dark);}
+    .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:56px;border:2px solid var(--dark);}
+    .pc{padding:32px;border-right:2px solid var(--dark);position:relative;}
+    .pc:last-child{border-right:none;}
+    .pc:hover{background:var(--bg3);}
+    .pt{font-family:'Orbitron',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;color:var(--tx);}
+    .pd{color:var(--txm);font-size:.85rem;line-height:1.8;margin-bottom:18px;}
+    .tags{display:flex;flex-wrap:wrap;gap:5px;}
+    .tag{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--txm);background:var(--bg);border:1px solid var(--bd);padding:3px 8px;letter-spacing:.04em;}
+    .pst{font-family:'Orbitron',sans-serif;font-size:2.6rem;font-weight:900;color:var(--tx);line-height:1;margin-bottom:4px;}
+    .pstl{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--txd);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;}
+
+    /* ── PRODUCTS ── */
+    #products{background:var(--bg);border-bottom:2px solid var(--dark);}
+    .prodg{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:56px;border:2px solid var(--dark);}
+
+    .pv{position:relative;height:200px;overflow:hidden;border-bottom:2px solid var(--dark);}
+    .pv img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);opacity:.55;mix-blend-mode:multiply;transition:transform .6s ease,opacity .4s;}
+    .prodg .gbc:hover .pv img{transform:scale(1.04);opacity:.7;}
+    .pv::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,247,244,.05) 0%,rgba(247,247,244,.5) 100%);}
+    .pv::before{content:'';position:absolute;inset:0;z-index:1;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(10,10,10,.04) 3px,rgba(10,10,10,.04) 4px);}
+    .pv-tl{position:absolute;bottom:14px;left:20px;z-index:10;}
+    .stb{display:inline-flex;align-items:center;gap:6px;background:var(--dark);color:var(--bg);font-family:'Space Mono',monospace;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;}
+    .stb .sd{width:5px;height:5px;background:var(--ac);animation:blink 1.2s step-end infinite;flex-shrink:0;}
+
+    .pcard{padding:34px 36px 36px;}
+    .pttl{font-family:'Orbitron',sans-serif;font-size:1.8rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;}
+    .pdiv{width:32px;height:3px;background:var(--ac);margin:16px 0;}
+    .pdsc{color:var(--txm);font-size:.9rem;line-height:1.8;margin-bottom:14px;}
+    .ptgt{font-family:'Space Mono',monospace;font-size:.65rem;color:var(--txd);margin-bottom:24px;letter-spacing:.05em;}
+    .ptgt strong{color:var(--txm);}
+
+    /* product card divider */
+    .prodg .pc2{border-left:2px solid var(--dark);}
+    .pitem{transition:background .25s;}
+    .pitem:hover{background:var(--bg2);}
+
+    /* ── VISION ── */
+    #vision{position:relative;overflow:hidden;padding:160px 0;background:var(--dark);border-bottom:2px solid var(--dark);}
+    #vision::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(12,240,192,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}
+    .vi-img{position:absolute;inset:0;}
+    .vi-img img{width:100%;height:100%;object-fit:cover;opacity:.08;filter:grayscale(1);}
+    .vi-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,.96) 0%,rgba(10,10,10,.85) 100%);}
+    .vo{position:absolute;border-radius:0;pointer-events:none;}
+    .vo1{width:600px;height:600px;background:radial-gradient(circle,rgba(12,240,192,.06) 0%,transparent 70%);top:-200px;left:-150px;filter:blur(80px);}
+    .vo2{width:500px;height:500px;background:radial-gradient(circle,rgba(12,240,192,.04) 0%,transparent 70%);bottom:-150px;right:-100px;filter:blur(80px);}
+    .vc{position:relative;z-index:10;}
+    .vl{color:var(--ac);}
+    .vh{font-family:'Press Start 2P',monospace;font-size:clamp(.8rem,1.55vw,1.45rem);color:#fff;margin-bottom:36px;line-height:1.75;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;}
+    .vh em{font-style:normal;color:var(--ac);}
+    .vb{color:rgba(255,255,255,.46);font-size:1rem;line-height:1.95;max-width:640px;}
+    .vb p+p{margin-top:20px;}
+    .vcat{display:inline-flex;align-items:center;gap:10px;margin-top:40px;padding:12px 22px;border:2px solid rgba(12,240,192,.25);color:var(--ac);font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
+    .vcat::before{content:'';width:8px;height:8px;background:var(--ac);animation:blink 1.2s step-end infinite;flex-shrink:0;}
+
+    /* ── ABOUT ── */
+    #about{background:var(--bg);border-bottom:2px solid var(--dark);}
+    .abg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:56px;}
+    .abt{color:var(--txm);font-size:.96rem;line-height:1.88;}
+    .abt p+p{margin-top:18px;}
+    .facts{border:2px solid var(--dark);}
+    .fact{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--bd);transition:background .2s;}
+    .fact:last-child{border-bottom:none;}
+    .fact:hover{background:var(--bg2);}
+    .fl{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--txd);letter-spacing:.1em;text-transform:uppercase;padding:14px 18px;border-right:1px solid var(--bd);}
+    .fv{font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tx);padding:14px 18px;display:flex;align-items:center;}
+
+    /* ── CONTACT ── */
+    #contact{background:var(--bg2);}
+    .cin{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start;}
+    .ch{margin-bottom:14px;}
+    .csub{color:var(--txm);font-size:.92rem;line-height:1.75;margin-bottom:32px;}
+    .ci{margin-bottom:14px;padding-bottom:14px;border-bottom:var(--bdt);}
+    .ci:last-child{border-bottom:none;}
+    .cil{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--txd);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+    .civ{color:var(--txm);font-size:.88rem;}
+    .civ a{color:var(--tx);text-decoration:none;border-bottom:1px solid var(--ac);}
+    .civ a:hover{color:var(--ac);}
+
+    .cform{background:var(--bg);border:2px solid var(--dark);padding:36px;}
+    .fr{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .fg{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+    .flb{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--txm);letter-spacing:.06em;text-transform:uppercase;}
+    .fi,.fse,.fta{background:var(--bg2);border:2px solid var(--bd);padding:11px 14px;color:var(--tx);font-family:'DM Sans',sans-serif;font-size:.88rem;transition:border-color .2s;outline:none;width:100%;border-radius:0;}
+    .fi:focus,.fse:focus,.fta:focus{border-color:var(--dark);box-shadow:inset 0 0 0 1px var(--ac);}
+    .fi::placeholder,.fta::placeholder{color:var(--txd);font-family:'Space Mono',monospace;font-size:.76rem;}
+    .fse{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='rgba(10,10,10,0.4)' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-color:var(--bg2);}
+    .fse option{background:var(--bg);}
+    .fta{resize:vertical;min-height:110px;}
+    .fsub{width:100%;padding:14px;background:var(--dark);color:var(--bg);border:2px solid var(--dark);font-family:'Orbitron',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s;margin-top:4px;border-radius:0;}
+    .fsub:hover{background:var(--ac);color:var(--dark);border-color:var(--ac);}
+    .fok{display:none;text-align:center;padding:40px 28px;}
+    .fok h3{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+    .fok p{font-family:'Space Mono',monospace;color:var(--txm);font-size:.78rem;}
+
+    /* footer */
+    footer{background:var(--dark);padding:32px 0;border-top:2px solid var(--dark);}
+    .ftin{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+    .ftl{font-family:'Space Mono',monospace;color:rgba(255,255,255,.28);font-size:.72rem;letter-spacing:.06em;}
+    .ftr{display:flex;gap:24px;list-style:none;}
+    .ftr a{font-family:'Space Mono',monospace;color:rgba(255,255,255,.28);text-decoration:none;font-size:.72rem;transition:color .2s;cursor:none;letter-spacing:.06em;}
+    .ftr a:hover{color:var(--ac);}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      .hero-in{grid-template-columns:1fr;}.hero-right{display:none;}
+    }
+    @media(max-width:768px){
+      .nls{display:none;}.burger{display:flex;}
+      .srv-grid,.pg{grid-template-columns:1fr;}
+      .srv-grid .sc,.pg .pc{border-right:none;border-bottom:2px solid var(--dark);}
+      .srv-grid .sc:last-child,.pg .pc:last-child{border-bottom:none;}
+      .prodg{grid-template-columns:1fr;}
+      .prodg .pc2{border-left:none;border-top:2px solid var(--dark);}
+      .abg,.cin{grid-template-columns:1fr;gap:48px;}
+      section{padding:90px 0;}
+      #vision{padding:110px 0;}
+    }
+    @media(max-width:768px){.vh{white-space:normal;font-size:.8rem;}}
+    @media(max-width:480px){
+      .hctas{flex-direction:column;align-items:stretch;}.bp,.bs{text-align:center;justify-content:center;}
+      .pcard{padding:24px;}
+      .cform{padding:22px;}
+      .fr{grid-template-columns:1fr;}
+      h1{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="w">
+    <div class="ni">
+      <a href="#" class="nl">AI<span>4E1</span></a>
+      <ul class="nls">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="nc">Work With Us</a></li>
+      </ul>
+      <button class="burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div id="mob">
+  <a href="#services" class="ml">Services</a>
+  <a href="#products" class="ml">Products</a>
+  <a href="#vision" class="ml">Vision</a>
+  <a href="#about" class="ml">About</a>
+  <a href="#contact" class="ml">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="w" style="width:100%;">
+    <div class="hero-in">
+      <div class="hero-left">
+        <div class="hbadge"><div class="hdot"></div>Bristol, UK &nbsp;·&nbsp; UWE Launch Space &nbsp;·&nbsp; Innovate UK</div>
+        <h1 class="hh1">AI THAT<br/><span class="glitch">REACHES</span><br/>PEOPLE FIRST.</h1>
+        <p class="hsub">AI4E1 builds proactive AI systems — for education, care, and business — that act before people need to ask.</p>
+        <div class="hctas">
+          <a href="#contact" class="bp mag">Work with us →</a>
+          <a href="#services" class="bs">See what we build ↓</a>
+        </div>
+        <p class="htag">Proactive AI <span>·</span> Presence AI <span>·</span> Voice-first</p>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-img-wrap">
+          <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1000&q=80&auto=format&fit=crop" alt=""/>
+          <div class="hero-img-teal"></div>
+          <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+        </div>
+
+        <!-- HUD: Linda call -->
+        <div class="hud hud1">
+          <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+          <div class="hud-top">
+            <div class="hud-av">L</div>
+            <div>
+              <div class="hud-name">Linda</div>
+              <div class="hud-st"><div class="hud-live"></div>Live call</div>
+            </div>
+          </div>
+          <div class="wave-wrap">
+            <div class="wb" style="--h:7px;--d:.5s;"></div><div class="wb" style="--h:17px;--d:.7s;"></div><div class="wb" style="--h:22px;--d:.4s;"></div><div class="wb" style="--h:13px;--d:.9s;"></div><div class="wb" style="--h:20px;--d:.6s;"></div><div class="wb" style="--h:9px;--d:.8s;"></div><div class="wb" style="--h:21px;--d:.55s;"></div><div class="wb" style="--h:14px;--d:.72s;"></div>
+          </div>
+          <div class="hud-foot">AI care companion</div>
+        </div>
+
+        <!-- HUD: stat -->
+        <div class="hud hud2">
+          <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+          <div class="hud-stat cnt" data-target="10000">0</div>
+          <div class="hud-stl">Applications processed</div>
+        </div>
+
+        <!-- HUD: Page session -->
+        <div class="hud hud3">
+          <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+          <div class="hud-top">
+            <div class="hud-av ac">P</div>
+            <div>
+              <div class="hud-name">Page</div>
+              <div class="hud-st"><div class="hud-live"></div>Studying</div>
+            </div>
+          </div>
+          <div class="wave-wrap">
+            <div class="wb" style="--h:10px;--d:.6s;background:var(--dark);"></div><div class="wb" style="--h:18px;--d:.8s;background:var(--dark);"></div><div class="wb" style="--h:8px;--d:.5s;background:var(--dark);"></div><div class="wb" style="--h:20px;--d:.7s;background:var(--dark);"></div><div class="wb" style="--h:13px;--d:.9s;background:var(--dark);"></div>
+          </div>
+          <div class="hud-foot">AI tutor · Feynman method</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sc-ind">
+    <div class="sc-lbl">Scroll</div>
+    <div class="sc-line"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Proactive AI <span>·</span></span>
+    <span class="ticker-item">Presence AI <span>·</span></span>
+    <span class="ticker-item">Voice-first <span>·</span></span>
+    <span class="ticker-item">Bristol UK <span>·</span></span>
+    <span class="ticker-item">Education <span>·</span></span>
+    <span class="ticker-item">Care <span>·</span></span>
+    <span class="ticker-item">Business <span>·</span></span>
+    <span class="ticker-item">Innovate UK <span>·</span></span>
+    <span class="ticker-item">UWE Launch Space <span>·</span></span>
+    <span class="ticker-item">Fixed scope. Fixed price. <span>·</span></span>
+    <span class="ticker-item">Proactive AI <span>·</span></span>
+    <span class="ticker-item">Presence AI <span>·</span></span>
+    <span class="ticker-item">Voice-first <span>·</span></span>
+    <span class="ticker-item">Bristol UK <span>·</span></span>
+    <span class="ticker-item">Education <span>·</span></span>
+    <span class="ticker-item">Care <span>·</span></span>
+    <span class="ticker-item">Business <span>·</span></span>
+    <span class="ticker-item">Innovate UK <span>·</span></span>
+    <span class="ticker-item">UWE Launch Space <span>·</span></span>
+    <span class="ticker-item">Fixed scope. Fixed price. <span>·</span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="w">
+    <div class="rv">
+      <span class="lbl sl">// Services</span>
+      <h2 class="scramble">We build proactive AI for your business.</h2>
+      <p class="ss">Fixed scope. Fixed price. AI voice agents, automation, and custom products — built and deployed in days, not months.</p>
+    </div>
+    <div class="srv-grid rv d1">
+      <div class="sc">
+        <div class="sc-n">01</div>
+        <div class="sc-t">AI Voice Agent</div>
+        <p class="sc-d">A custom inbound or outbound voice AI agent, trained on your business, deployed and live.</p>
+        <div class="sc-p">£3,500 · 3–5 days</div>
+        <p class="sc-s">Powered by Retell AI. Handles calls, qualifies leads, books appointments, routes to your team.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-n">02</div>
+        <div class="pop">Most requested</div>
+        <div class="sc-t">Automation Stack</div>
+        <p class="sc-d">Intelligent workflows connecting your tools — CRM, email, calendar, databases — with AI decision-making built in.</p>
+        <div class="sc-p">£2,500 · 2–3 days</div>
+        <p class="sc-s">n8n-powered. Replaces manual processes with AI-driven automation that runs 24/7.</p>
+      </div>
+      <div class="sc">
+        <div class="sc-n">03</div>
+        <div class="sc-t">Custom AI Product</div>
+        <p class="sc-d">A bespoke AI-powered product or internal tool, designed and built to your specification.</p>
+        <div class="sc-p">£5,000 · 1–2 weeks</div>
+        <p class="sc-s">From concept to deployed product. Voice, text, or multimodal. Your IP, fully owned.</p>
+      </div>
+    </div>
+    <div class="sf rv">
+      <p>Every project includes a discovery call, a clear scope document, and a fixed price before we start.</p>
+      <a href="#contact" class="bp mag">Book a discovery call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="w">
+    <div class="rv">
+      <span class="lbl sl">// Work</span>
+      <h2 class="scramble">What we've built.</h2>
+    </div>
+    <div class="pg rv d1">
+      <div class="pc">
+        <div class="pt">AI Receptionist</div>
+        <p class="pd">An AI voice receptionist for AI4E1 that handles inbound calls 24/7, classifies caller intent, captures lead information, and routes follow-ups to the right team member.</p>
+        <div class="tags">
+          <span class="tag">Retell AI</span><span class="tag">Cloudflare Workers</span><span class="tag">Airtable</span>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pst cnt" data-target="10000">0</div>
+        <div class="pstl">Applications processed</div>
+        <div class="pt">Automated Application System</div>
+        <p class="pd">An AI-powered system that applies to jobs on behalf of job seekers — parsing listings, generating tailored applications, and managing the pipeline.</p>
+        <div class="tags">
+          <span class="tag">Claude API</span><span class="tag">n8n</span><span class="tag">Supabase</span>
+        </div>
+      </div>
+      <div class="pc">
+        <div class="pt">Multi-Agent Business OS</div>
+        <p class="pd">A seven-agent AI operating system that proactively manages business intelligence, relationship tracking, and strategic planning — with voice-based CEO briefings twice weekly.</p>
+        <div class="tags">
+          <span class="tag">Claude API</span><span class="tag">Retell AI</span><span class="tag">n8n</span><span class="tag">Supabase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="w">
+    <div class="rv">
+      <span class="lbl sl">// Products</span>
+      <h2 class="scramble">Products we're building.</h2>
+      <p class="ss">Proactive AI for education, care, and life.</p>
+    </div>
+    <div class="prodg rv d1">
+      <div class="pitem">
+        <div class="pv">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80&auto=format&fit=crop" alt="Students studying" loading="lazy"/>
+          <div class="pv-tl"><div class="stb"><div class="sd"></div>In Development</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pttl">Page</div>
+          <div class="pdiv"></div>
+          <p class="pdsc">An AI tutor that proactively calls students for voice-based learning sessions using the Feynman technique. Page doesn't wait for students to ask — it reaches them first, tracks understanding over time, and adapts to how they think.</p>
+          <p class="ptgt"><strong>For:</strong> GCSE, A-Level, and University students</p>
+          <a href="#contact" class="bg">Join the waitlist →</a>
+        </div>
+      </div>
+      <div class="pitem pc2">
+        <div class="pv">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80&auto=format&fit=crop" alt="Care and human connection" loading="lazy"/>
+          <div class="pv-tl"><div class="stb"><div class="sd"></div>In Development</div></div>
+        </div>
+        <div class="pcard">
+          <div class="pttl">Linda</div>
+          <div class="pdiv"></div>
+          <p class="pdsc">An AI voice companion for care home residents. Linda calls regularly, builds a relationship over time, monitors for early signs of decline, and gives care teams structured insight into resident wellbeing.</p>
+          <p class="ptgt"><strong>For:</strong> UK care homes and post-discharge monitoring</p>
+          <a href="#contact" class="bg">Partner with us →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision">
+  <div class="vi-img">
+    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1800&q=80&auto=format&fit=crop" alt="" loading="lazy"/>
+  </div>
+  <div class="vo vo1"></div>
+  <div class="vo vo2"></div>
+  <div class="w">
+    <div class="vc rv">
+      <span class="lbl sl vl">// Vision</span>
+      <h2 class="vh">We're not building tools.<br/><em>We're building presences.</em></h2>
+      <div class="vb">
+        <p>Most AI waits to be used. We build AI that shows up first — that knows you over time and genuinely improves your life.</p>
+        <p>Page reaches students before they fall behind. Linda reaches residents before isolation becomes crisis. Every product we build is the same fundamental act: an intelligence that is present, proactive, and invested in human flourishing.</p>
+        <p>We call this Presence AI. It's a new category — and we believe it will define how AI serves humanity for decades to come.</p>
+      </div>
+      <div class="vcat">Presence AI &nbsp;—&nbsp; A new category</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="w">
+    <div class="rv">
+      <span class="lbl sl">// Company</span>
+      <h2 class="scramble">About AI4E1</h2>
+    </div>
+    <div class="abg">
+      <div class="abt rv l">
+        <p>AI4E1 is a Bristol-based AI company building proactive voice AI across education, care, and professional productivity.</p>
+        <p>Founded by Michael Eneh and Victor Udedibor, we combine deep technical expertise in voice AI, workflow automation, and applied machine learning with a clear belief: support shouldn't wait for crisis.</p>
+        <p>We're members of UWE Bristol's Launch Space tech incubator and supported by Innovate UK.</p>
+      </div>
+      <div class="rv r">
+        <div class="facts">
+          <div class="fact"><div class="fl">Founded</div><div class="fv">2025</div></div>
+          <div class="fact"><div class="fl">Base</div><div class="fv">Bristol, UK</div></div>
+          <div class="fact"><div class="fl">Focus</div><div class="fv">Proactive Voice AI</div></div>
+          <div class="fact"><div class="fl">Incubator</div><div class="fv">UWE Launch Space</div></div>
+          <div class="fact"><div class="fl">Funding</div><div class="fv">Innovate UK</div></div>
+          <div class="fact"><div class="fl">Products</div><div class="fv">Page, Linda</div></div>
+          <div class="fact"><div class="fl">Services</div><div class="fv">Voice · Auto · Custom</div></div>
+          <div class="fact"><div class="fl">Status</div><div class="fv">Active · Bristol</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="w">
+    <div class="rv" style="margin-bottom:56px;">
+      <span class="lbl sl">// Contact</span>
+      <h2 class="scramble">Let's talk.</h2>
+      <p class="ss">Whether you need AI built for your business or want to explore a partnership — we'd love to hear from you.</p>
+    </div>
+    <div class="cin">
+      <div class="rv l">
+        <div class="ci"><div class="cil">Email</div><div class="civ"><a href="mailto:hello@ai4e1.com">hello@ai4e1.com</a></div></div>
+        <div class="ci"><div class="cil">Mobile</div><div class="civ"><a href="tel:+447426149277">+44 7426 149 277</a></div></div>
+        <div class="ci"><div class="cil">Office</div><div class="civ"><a href="tel:+441392321494">+44 1392 321 494</a></div></div>
+        <div class="ci"><div class="cil">Location</div><div class="civ">Bristol, United Kingdom</div></div>
+        <div class="ci"><div class="cil">Response time</div><div class="civ">Within 24 hours</div></div>
+        <div class="ci"><div class="cil">Connect</div><div class="civ"><a href="https://linkedin.com/company/ai4e1" target="_blank" rel="noopener">LinkedIn →</a></div></div>
+      </div>
+      <div class="cform rv r" id="fw">
+        <form id="cf" action="https://formsubmit.co/michael.eneh@ai4e1.net" method="POST">
+          <input type="hidden" name="_subject" value="New enquiry — ai4e1.net">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="fr">
+            <div class="fg"><label class="flb">Name</label><input type="text" name="name" class="fi" placeholder="Your name" required></div>
+            <div class="fg"><label class="flb">Email</label><input type="email" name="email" class="fi" placeholder="you@example.com" required></div>
+          </div>
+          <div class="fg">
+            <label class="flb">Enquiry type</label>
+            <select name="enquiry" class="fse" required>
+              <option value="" disabled selected>Select an option</option>
+              <option>I need AI built for my business</option>
+              <option>I'm interested in Page</option>
+              <option>I'm interested in Linda</option>
+              <option>Partnership or research collaboration</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label class="flb">Message</label><textarea name="message" class="fta" placeholder="Tell us what you're looking to build or explore…" required></textarea></div>
+          <button type="submit" class="fsub">Send message →</button>
+        </form>
+        <div class="fok" id="fok">
+          <h3>Message sent.</h3>
+          <p>// We'll be in touch within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="w">
+    <div class="ftin">
+      <div class="ftl">// © 2026 AI4E1 Ltd. Bristol, UK.</div>
+      <ul class="ftr">
+        <li><a href="/legal/privacy">Privacy Policy</a></li>
+        <li><a href="/legal/terms">Terms</a></li>
+        <li><a href="https://linkedin.com/company/ai4e1" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';document.body.classList.add('con');});
+document.addEventListener('mouseleave',()=>document.body.classList.remove('con'));
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.sc,.pitem').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hover'));
+});
+
+/* NAV */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('sk',scrollY>50));
+
+/* BURGER */
+const burger=document.getElementById('burger'),mob=document.getElementById('mob');
+burger.addEventListener('click',()=>{burger.classList.toggle('open');mob.classList.toggle('open');});
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>{burger.classList.remove('open');mob.classList.remove('open');}));
+
+/* REVEAL */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on');}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+
+/* TEXT SCRAMBLE */
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+function scramble(el){
+  const orig=el.textContent;
+  let iter=0,id;
+  clearInterval(id);
+  id=setInterval(()=>{
+    el.textContent=orig.split('').map((c,i)=>{
+      if(c===' ')return ' ';
+      if(c==='\n')return '\n';
+      if(i<iter)return orig[i];
+      return chars[Math.floor(Math.random()*chars.length)];
+    }).join('');
+    iter+=.6;
+    if(iter>=orig.length){el.textContent=orig;clearInterval(id);}
+  },28);
+}
+const so=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting&&!x.target.dataset.sc){x.target.dataset.sc=1;scramble(x.target);}
+}),{threshold:.3});
+document.querySelectorAll('.scramble').forEach(el=>so.observe(el));
+
+/* COUNTER */
+function ac(el,t){const dur=2000,st=performance.now();(function u(n){const p=Math.min((n-st)/dur,1),ev=1-Math.pow(1-p,3),v=Math.floor(ev*t);el.textContent=v>=1000?(v/1000).toFixed(0)+'k+':v;if(p<1)requestAnimationFrame(u);})(st);}
+const co=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting&&!x.target.dataset.d){x.target.dataset.d=1;ac(x.target,+x.target.dataset.target);}}),{threshold:.5});
+document.querySelectorAll('.cnt').forEach(el=>co.observe(el));
+
+/* MAGNETIC */
+document.querySelectorAll('.mag').forEach(b=>{
+  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.18}px)`;});
+  b.addEventListener('mouseleave',()=>{b.style.transform='';});
+});
+
+/* FORM */
+const cf=document.getElementById('cf'),fok=document.getElementById('fok');
+cf.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=cf.querySelector('.fsub');btn.textContent='Sending…';btn.disabled=true;
+  try{
+    const res=await fetch(cf.action,{method:'POST',body:new FormData(cf),headers:{Accept:'application/json'}});
+    if(res.ok){cf.style.display='none';fok.style.display='block';}else throw 0;
+  }catch{btn.textContent='Send message →';btn.disabled=false;alert('Something went wrong. Email us at hello@ai4e1.com');}
+});
+</script>
+</body>
+</html>
