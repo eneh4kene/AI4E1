@@ -70,6 +70,7 @@
     /* ── NAV ── */
     nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:500;background:var(--bg);border-bottom:var(--bdt);transition:border-color .3s,box-shadow .3s;}
     nav.sk{box-shadow:0 1px 0 rgba(10,10,10,.08);}
+    nav .w{height:100%;}
     .ni{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;}
     .nl{font-family:'Press Start 2P',monospace;font-size:.85rem;color:var(--tx);text-decoration:none;letter-spacing:.05em;line-height:1;}
     .nl span{color:var(--ac);}
@@ -314,7 +315,7 @@
       section{padding:90px 0;}
       #vision{padding:110px 0;}
     }
-    @media(max-width:768px){.vh{white-space:normal;font-size:.8rem;}}
+    @media(max-width:768px){.vh{white-space:normal;font-size:.8rem;}.hero-in{padding-top:36px;padding-bottom:40px;}}
     @media(max-width:480px){
       .hctas{flex-direction:column;align-items:stretch;}.bp,.bs{text-align:center;justify-content:center;}
       .pcard{padding:24px;}
