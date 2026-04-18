@@ -501,7 +501,8 @@
         <p class="sc-d">Your brand posting consistently on social media — without lifting a finger. AI writes, schedules, and reports.</p>
         <div class="sc-p">From £49 / mo</div>
         <p class="sc-s">Researches trends. Writes in your brand voice. Generates visuals. Posts on schedule. Monthly strategy report.</p>
-        <a href="https://app.pulse.ai4e1.net" target="_blank" rel="noopener" class="bp" style="margin-top:20px;background:var(--ac);color:var(--dark);border-color:var(--ac);cursor:none;">Start with Pulse →</a>
+        <a id="pulse-cta" href="https://app.pulse.ai4e1.net" target="_blank" rel="noopener" class="bp" style="display:none;margin-top:20px;background:var(--ac);color:var(--dark);border-color:var(--ac);cursor:none;">Start with Pulse →</a>
+        <p id="pulse-soon" class="sc-s" style="margin-top:20px;border-top:none;padding-top:0;">Launching soon — <a href="#contact" style="color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac);">join the waitlist</a></p>
       </div>
     </div>
     <div class="sf rv">
@@ -704,6 +705,10 @@
 </footer>
 
 <script>
+/* PULSE — set to true when app.pulse.ai4e1.net is live */
+const PULSE_LIVE = false;
+if(PULSE_LIVE){document.getElementById('pulse-cta').style.display='inline-flex';document.getElementById('pulse-soon').style.display='none';}
+
 /* CURSOR */
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
