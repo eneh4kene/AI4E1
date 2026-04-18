@@ -705,9 +705,10 @@
 </footer>
 
 <script>
-/* PULSE — set to true when app.pulse.ai4e1.net is live */
-const PULSE_LIVE = false;
-if(PULSE_LIVE){document.getElementById('pulse-cta').style.display='inline-flex';document.getElementById('pulse-soon').style.display='none';}
+/* PULSE — auto-check if app is live */
+fetch('https://app.pulse.ai4e1.net',{mode:'no-cors',cache:'no-store'})
+  .then(()=>{document.getElementById('pulse-cta').style.display='inline-flex';document.getElementById('pulse-soon').style.display='none';})
+  .catch(()=>{});
 
 /* CURSOR */
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
