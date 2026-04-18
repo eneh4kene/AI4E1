@@ -501,8 +501,10 @@
         <p class="sc-d">Your brand posting consistently on social media — without lifting a finger. AI writes, schedules, and reports.</p>
         <div class="sc-p">From £49 / mo</div>
         <p class="sc-s">Researches trends. Writes in your brand voice. Generates visuals. Posts on schedule. Monthly strategy report.</p>
-        <a id="pulse-cta" href="https://app.pulse.ai4e1.net" target="_blank" rel="noopener" class="bp" style="display:none;margin-top:20px;background:var(--ac);color:var(--dark);border-color:var(--ac);cursor:none;">Start with Pulse →</a>
-        <p id="pulse-soon" class="sc-s" style="margin-top:20px;border-top:none;padding-top:0;">Launching soon — <a href="#contact" style="color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac);">join the waitlist</a></p>
+        <div style="margin-top:20px;position:relative;min-height:50px;">
+          <a id="pulse-cta" href="https://app.pulse.ai4e1.net" target="_blank" rel="noopener" class="bp" style="opacity:0;pointer-events:none;position:absolute;top:0;left:0;background:var(--ac);color:var(--dark);border-color:var(--ac);cursor:none;transition:opacity .3s;">Start with Pulse →</a>
+          <p id="pulse-soon" class="sc-s" style="border-top:none;padding-top:0;position:absolute;top:0;left:0;transition:opacity .3s;">Launching soon — <a href="#contact" style="color:var(--ac);text-decoration:none;border-bottom:1px solid var(--ac);">join the waitlist</a></p>
+        </div>
       </div>
     </div>
     <div class="sf rv">
@@ -707,7 +709,7 @@
 <script>
 /* PULSE — auto-check if app is live */
 fetch('https://app.pulse.ai4e1.net',{mode:'no-cors',cache:'no-store'})
-  .then(()=>{document.getElementById('pulse-cta').style.display='inline-flex';document.getElementById('pulse-soon').style.display='none';})
+  .then(()=>{const c=document.getElementById('pulse-cta'),s=document.getElementById('pulse-soon');c.style.opacity='1';c.style.pointerEvents='auto';s.style.opacity='0';})
   .catch(()=>{});
 
 /* CURSOR */
