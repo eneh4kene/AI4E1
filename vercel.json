@@ -1,5 +1,22 @@
 {
   "buildCommand": "",
   "outputDirectory": ".",
-  "framework": null
+  "framework": null,
+  "redirects": [
+    {
+      "source": "/work/acts/:page(app|voice|listen|material|luke|before)",
+      "destination": "/work/acts/:page/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/work/acts",
+      "destination": "https://acts-interviewsai.vercel.app/"
+    },
+    {
+      "source": "/work/acts/:path*",
+      "destination": "https://acts-interviewsai.vercel.app/:path*"
+    }
+  ]
 }
