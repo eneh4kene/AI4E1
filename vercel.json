@@ -15,8 +15,16 @@
       "destination": "https://acts-interviewsai.vercel.app/"
     },
     {
-      "source": "/work/acts/:path*",
-      "destination": "https://acts-interviewsai.vercel.app/:path*"
+      "source": "/work/acts/",
+      "destination": "https://acts-interviewsai.vercel.app/"
+    },
+    {
+      "source": "/work/acts/:path+/",
+      "destination": "https://acts-interviewsai.vercel.app/:path+/"
+    },
+    {
+      "source": "/work/acts/:path+",
+      "destination": "https://acts-interviewsai.vercel.app/:path+"
     }
   ]
 }
