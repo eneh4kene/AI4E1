@@ -4,8 +4,8 @@
   "framework": null,
   "redirects": [
     {
-      "source": "/work/acts/:page(app|voice|listen|material|luke|before)",
-      "destination": "/work/acts/:page/",
+      "source": "/work/acts/:path([^.]*[^./])",
+      "destination": "/work/acts/:path/",
       "permanent": false
     }
   ],
