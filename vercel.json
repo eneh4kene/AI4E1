@@ -4,6 +4,11 @@
   "framework": null,
   "redirects": [
     {
+      "source": "/dev-school",
+      "destination": "/dev-school/",
+      "permanent": false
+    },
+    {
       "source": "/work/acts/:path([^.]*[^./])",
       "destination": "/work/acts/:path/",
       "permanent": false
@@ -30,10 +35,6 @@
     {
       "source": "/work/acts/:path+",
       "destination": "https://acts-interviewsai.vercel.app/:path+"
-    },
-    {
-      "source": "/dev-school",
-      "destination": "https://dev-school-two.vercel.app/"
     },
     {
       "source": "/dev-school/",
