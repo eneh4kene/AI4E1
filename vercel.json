@@ -7,6 +7,11 @@
       "source": "/work/acts/:path([^.]*[^./])",
       "destination": "/work/acts/:path/",
       "permanent": false
+    },
+    {
+      "source": "/dev-school/:path([^.]*[^./])",
+      "destination": "/dev-school/:path/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -25,6 +30,22 @@
     {
       "source": "/work/acts/:path+",
       "destination": "https://acts-interviewsai.vercel.app/:path+"
+    },
+    {
+      "source": "/dev-school",
+      "destination": "https://dev-school-two.vercel.app/"
+    },
+    {
+      "source": "/dev-school/",
+      "destination": "https://dev-school-two.vercel.app/"
+    },
+    {
+      "source": "/dev-school/:path+/",
+      "destination": "https://dev-school-two.vercel.app/:path+/"
+    },
+    {
+      "source": "/dev-school/:path+",
+      "destination": "https://dev-school-two.vercel.app/:path+"
     }
   ]
 }
